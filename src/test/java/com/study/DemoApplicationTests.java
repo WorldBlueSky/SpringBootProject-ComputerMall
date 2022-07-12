@@ -1,6 +1,5 @@
 package com.study;
 
-import com.study.pojo.User;
 import com.study.service.UserServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;

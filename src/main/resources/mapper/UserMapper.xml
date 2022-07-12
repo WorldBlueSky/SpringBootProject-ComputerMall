@@ -4,7 +4,29 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.study.mapper.UserMapper" >
-    <select id="getUsers" resultType="com.study.pojo.User">
-        select * from users
+    <insert id="insert" parameterType="com.study.pojo.User">
+        insert into t_user(uid, username, password, salt,
+                           salt, email, gender, avatar,
+                           is_delete, created_user, created_time,
+                           modified_user, modified_time)
+                    values (#{uid},#{username},#{password},#{salt},
+                            #{salt},#{email},#{gender},#{avatar},
+                            #{isDelete},#{createdUser},#{createdTime},
+                            #{modifiedUser},#{modifiedTime})
+    </insert>
+
+
+    <delete id="delete" parameterType="int">
+        delete from t_user where username=#{uid}
+    </delete>
+
+
+    <select id="selectByName" resultType="com.study.pojo.User" parameterType="java.lang.String">
+        select * from t_user where username=#{name}
     </select>
+
+    <select id="selectAll" resultType="com.study.pojo.User">
+        select * from t_user
+    </select>
+
 </mapper>
