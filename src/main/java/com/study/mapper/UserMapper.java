@@ -1,9 +1,10 @@
 package com.study.mapper;
 import com.study.pojo.User;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
-// 不加@Mapper 注解
+@Mapper
 public interface UserMapper {
     List<User> getUsers();
 }

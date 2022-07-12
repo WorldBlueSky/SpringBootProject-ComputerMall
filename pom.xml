@@ -61,7 +61,19 @@
         </dependencies>
     </dependencyManagement>
 
+
+    <packaging>
+        jar
+    </packaging>
+
+
     <build>
+
+
+
+    <finalName>
+        springboot
+    </finalName>
 
         <plugins>
             <plugin>
