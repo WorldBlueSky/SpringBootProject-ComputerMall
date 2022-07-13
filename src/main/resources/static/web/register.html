@@ -38,14 +38,14 @@
 					<div class="form-group">
 						<label class="col-md-3 control-label">名字：</label>
 						<div class="col-md-8">
-							<input name="username" type="text" class="form-control" placeholder="请输入用户名">
+							<input id="username" name="username" type="text" class="form-control" placeholder="请输入用户名">
 						</div>
 					</div>
 					<!--密码-->
 					<div class="form-group">
 						<label class="col-md-3 control-label"> 密码：</label>
 						<div class="col-md-8">
-							<input name="password" type="text" class="form-control" placeholder="请输入密码">
+							<input id="password" name="password" type="text" class="form-control" placeholder="请输入密码">
 						</div>
 					</div>
 					<!--确认密码-->
@@ -139,5 +139,39 @@
 		</footer>
 		<!--页脚结束-->
 	</body>
+
+<script >
+	// 1、监听注册按钮是否被点击
+   $("#btn-reg").click(function () {
+
+	   let username = $("#username");
+	   let password = $("#password")
+	   console.log(username.val());
+	   console.log(password.val());
+
+       // console.log($("form-reg").serialize());
+
+        //2.发送ajax() 的异步请求来完成用户的注册功能
+	   $.ajax({
+		  url:"/store/users/reg",
+		  type:"post",
+		  data:$("#form-reg").serialize(),
+		   dataType:"Json",
+		  success:function (data,status) {
+             if(data.state===200){
+				 alert("注册成功!")
+			 }else {
+             	alert("注册失败!")
+			 }
+		  },
+		   error:function (xhr) {
+              alert("注册时产生了未知的错误!"+xhr.status)
+		   }
+	   })
+	});
+
+
+</script>
+
 
 </html>
