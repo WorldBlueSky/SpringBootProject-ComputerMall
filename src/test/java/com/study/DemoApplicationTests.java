@@ -1,15 +1,16 @@
 package com.study;
 
-import com.study.service.UserServiceImpl;
+import com.study.service.impl.UserServiceImpl;
 import org.junit.jupiter.api.Test;
+import org.junit.runner.RunWith;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-
-import java.util.List;
+import org.springframework.test.context.junit4.SpringRunner;
 
 @SpringBootTest
 @MapperScan("com..*.mapper")
+@RunWith(SpringRunner.class)
 class DemoApplicationTests {
 
     @Autowired
@@ -17,8 +18,7 @@ class DemoApplicationTests {
 
     @Test
     void contextLoads() {
-        List<User> list = userService.getUsers();
-        System.out.println(list);
+
     }
 
 }

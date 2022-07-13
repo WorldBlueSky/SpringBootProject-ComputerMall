@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
 
+@Mapper
 public interface UserMapper {
     List<User> selectAll();
 
