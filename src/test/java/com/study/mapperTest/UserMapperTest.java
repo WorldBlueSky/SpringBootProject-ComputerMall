@@ -51,7 +51,7 @@ public class UserMapperTest {
 
     @Test
     public void selectByName(){
-        User user = userMapper.selectByName("admin");
+        User user = userMapper.selectByName("java");
         System.out.println(user);
     }
 

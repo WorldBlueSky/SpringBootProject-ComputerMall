@@ -6,8 +6,11 @@ import com.study.service.ex.InsertException;
 import com.study.service.ex.UsernameDuplicatedException;
 import com.study.util.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpSession;
 
 @RestController
 @RequestMapping("/users")
@@ -31,6 +34,23 @@ public class UserController extends BaseController{
 
         result.setState(200);
         result.setMessage("用户注册成功!");
+        return result;
+    }
+
+    @RequestMapping("/login")
+    public JsonResult<User> reg(String username, String password, HttpSession session){
+
+        JsonResult<User> result = new JsonResult<>();
+        User user = userService.login(username, password);
+
+        result.setState(200);
+        result.setMessage("用户登陆成功!");
+        result.setData(user);
+
+        // 全局的session数据信息设置
+        session.setAttribute("uid",user.getUid());
+        session.setAttribute("username",user.getUsername());
+
         return result;
     }
 

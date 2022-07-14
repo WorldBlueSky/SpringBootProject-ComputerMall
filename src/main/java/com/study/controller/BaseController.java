@@ -1,8 +1,6 @@
 package com.study.controller;
 
-import com.study.service.ex.InsertException;
-import com.study.service.ex.ServiceException;
-import com.study.service.ex.UsernameDuplicatedException;
+import com.study.service.ex.*;
 import com.study.util.JsonResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -30,6 +28,12 @@ public class BaseController {
 
         if(e instanceof UsernameDuplicatedException){
             result.setState(4000);
+            result.setMessage(e.getMessage());
+        }else if(e instanceof UsernameNotFoundException){
+            result.setState(5001);
+            result.setMessage(e.getMessage());
+        }else if(e instanceof PasswordNotMatchException){
+            result.setState(5002);
             result.setMessage(e.getMessage());
         }else if(e instanceof InsertException){
             result.setState(5000);

@@ -35,7 +35,7 @@
 			<div class="loginDiv">
 				<p>用户登录</p>
 				<!--表单开始-->
-				<form id="form-login" action="index.html"  class="form-horizontal" role="form">
+				<form id="form-login" action="../index.html" class="form-horizontal" role="form">
 					<!--用户名-->
 					<div class="form-group">
 						<label for="username" class="col-md-3 control-label">名字：</label>
@@ -144,4 +144,25 @@
 		</footer>
 		<!--页脚结束-->
 	</body>
+
+<script>
+	$("#btn-login").click(function () {
+       $.ajax({
+       	   url:"/store/users/login",
+		   data:$("#form-login").serialize(),
+		   dataType:"JSON",
+		   success:function (data,status) {
+              if(data.state===200){
+              	alert("登陆成功!")
+				  // 跳转到主页
+				  location.href = "../index.html"
+			  }else{
+              	alert("登录失败!")
+			  }
+		   },error:function (xhr) {
+                alert("登陆时产生未知的异常"+xhr.message)
+		   }
+		})
+	});
+</script>
 </html>

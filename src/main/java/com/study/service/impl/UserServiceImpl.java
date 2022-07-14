@@ -4,7 +4,9 @@ import com.study.mapper.UserMapper;
 import com.study.pojo.User;
 import com.study.service.IUserService;
 import com.study.service.ex.InsertException;
+import com.study.service.ex.PasswordNotMatchException;
 import com.study.service.ex.UsernameDuplicatedException;
+import com.study.service.ex.UsernameNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
@@ -72,6 +74,8 @@ public class UserServiceImpl implements IUserService {
         }
     }
 
+
+
     /**
      * 用来对密码进行三次加密
      * @param password 用户传递的原密码
@@ -89,4 +93,56 @@ public class UserServiceImpl implements IUserService {
         return password;
 
     }
+
+    /**
+     *
+     * @param username 用户名
+     * @param password 用户密码
+     * @return
+     */
+
+    @Override
+    public User login(String username, String password) {
+        // 根据用户名称来查询用户的数据是否存在，如果不存在那么抛出异常
+        User user = userMapper.selectByName(username);
+
+        if(user==null){
+            throw new UsernameNotFoundException("用户数据不存在!");
+        }
+
+
+
+        // 检测用户的密码是否匹配
+       // 1、先获取到数据库中加密之后的密码
+        String oldPassword = user.getPassword();
+
+        //2、和用户直接传递的密码经过三次md5加密之后的结果进行比较
+
+          //2.1 获取盐值
+          String salt = user.getSalt();
+
+          //2。2 调用方法，经过加密
+         String newPassoword = getMd5Password(password,salt);
+
+          //2.3 比较密码
+        if(!oldPassword.equals(newPassoword)){
+            throw new PasswordNotMatchException("用户密码输入错误!");
+        }
+
+        // 判断 idDelete 字段的值是否为1，为1则已被删除
+        if(user.getIsDelete()==1){
+            throw new UsernameNotFoundException("用户数据不存在!");
+        }
+
+        // 只给前端返回需要的字段，其他不需要的不传递
+        User result = new User();
+        result.setUid(user.getUid());
+        result.setUsername(user.getUsername());
+        result.setAvatar(user.getAvatar());
+
+        return result;
+
+    }
+
+
 }
