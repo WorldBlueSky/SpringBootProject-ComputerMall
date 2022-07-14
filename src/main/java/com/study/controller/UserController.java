@@ -30,6 +30,13 @@ public class UserController extends BaseController{
     public JsonResult<Void> reg(User user){
 
         JsonResult<Void> result = new JsonResult<>();
+
+        if(user.getUsername()==null || user.getUsername().equals("") || user.getPassword()==null || user.getPassword().equals("")){
+            result.setState(200);
+            result.setMessage("用户名或密码不能为空!");
+            return result;
+        }
+
         userService.register(user);
 
         result.setState(200);
@@ -41,6 +48,13 @@ public class UserController extends BaseController{
     public JsonResult<User> reg(String username, String password, HttpSession session){
 
         JsonResult<User> result = new JsonResult<>();
+
+        if(username.equals("") || password.equals("")){
+            result.setState(5003);
+            result.setMessage("用户名或密码不能为空!");
+            return result;
+        }
+
         User user = userService.login(username, password);
 
         result.setState(200);

@@ -157,10 +157,10 @@
 				  // 跳转到主页
 				  location.href = "../index.html"
 			  }else{
-              	alert("登录失败!")
+              	alert(data.message);
 			  }
 		   },error:function (xhr) {
-                alert("登陆时产生未知的异常"+xhr.message)
+                alert("登陆时产生未知的异常 "+xhr.message)
 		   }
 		})
 	});
